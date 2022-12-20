@@ -12,7 +12,7 @@ export const ZAbout = () => {
                         About / Acerca
                     </p>
                </div>
-               <div className='mt-4 text-lg text-justify text-gray-500'>
+               <div className='mt-4 mb-10 text-lg text-justify text-gray-500'>
                     <ul className='mx-3 space-y-5 list-disc sm:mx-10'>
                         <li>
                             Soy una persona organizada que cumple con las labores y requerimientos que se le exigen y soy   capaz de liderar y solucionar problemas rápidamente.

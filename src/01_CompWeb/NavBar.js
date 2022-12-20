@@ -15,28 +15,27 @@ export const NavBar = () => {
 
     const fxmostrarLinks = () => {
         return  links.map(items => (
-            <li key={items.id}
-                className='px-4 pt-5 mr-3 font-medium text-gray-500 capitalize duration-200 cursor-pointer hover:scale-110 hover:text-yellow-200'
-            >
-               <Link to={items.link}>
+            <Link   key={items.id}
+                    className='px-4 pt-5 mr-3 font-medium text-gray-500 capitalize duration-200 cursor-pointer hover:scale-110 hover:text-yellow-200'
+                    to={items.link}
+            >               
                     {items.titulo}
-                </Link>               
-            </li>
+                           
+            </Link>
         ))
          
     }
 
     const fxmostrarLinksMovil = () => {
         return  links.map(items => (
-            <li key={items.id}
-                className='w-full px-4 py-6 text-3xl text-center capitalize cursor-pointer hover:bg-black hover:text-yellow-400'
-            >
-                <Link   to={items.link}
-                        onClick={() => setNav(!nav) }
-                >
+            <Link   key={items.id}
+                    className='w-full px-4 py-6 text-3xl text-center capitalize cursor-pointer hover:bg-black hover:text-yellow-400'
+                    to={items.link}
+                    onClick={() => setNav(!nav) }
+            >                
                     {items.titulo}
-                </Link>
-            </li>            
+                
+            </Link>            
         ))
          
     }
@@ -72,7 +71,7 @@ export const NavBar = () => {
             </div>
 
             {nav && (
-                <ul className='absolute top-0 left-0 z-30 flex flex-col items-center justify-center w-full h-screen bg-gradient-to-t from-blue-gray-800 via-blue-gray-800 to-gray-900'>
+                <ul className='absolute top-0 left-0 flex flex-col items-center justify-center w-full h-screen bg-gradient-to-t from-blue-gray-800 via-blue-gray-800 to-gray-900'>
                     {fxmostrarLinksMovil()}                
                 </ul>
             )}

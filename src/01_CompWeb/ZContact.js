@@ -9,11 +9,11 @@ export const ZContact = () => {
             className='w-full h-screen text-yellow-200 bg-gradient-to-b from-black via-black to-gray-900'
         >
             <div className='flex flex-col items-center justify-center h-full max-w-screen-lg px-4 mx-auto text-center pt-28 xs:pt-32'>        
-                <div className='pb-8'>
+                <div className=''>
                         <p className='inline text-lg font-bold border-b-4 border-gray-500 xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl'>
                             Contactame
                         </p>
-                        <p className='py-6 text-sm font-bold xs:text-base sm:text-lg md:text-xl'>
+                        <p className='py-1 text-sm font-bold xs:text-base sm:text-lg md:text-xl'>
                             Pronto me comunicare contigo. Gracias.
                         </p>
                 </div>

@@ -21,7 +21,7 @@ export const PortafolioAlex = () => {
                     <span>■</span><span className='ml-2'>Mi aplicaciones estan basadas en React-js.</span> <br/>
                   </p>
                 </div>
-                <div>
+                <div className=''>
                   <Link to={"/ZComponentesRealizados"}
                         className='flex items-center px-6 py-3 my-6 text-white rounded-md cursor-pointer group bg-gradient-to-r from-cyan-500 to-blue-800 w-fit'>
                       Portafolio
