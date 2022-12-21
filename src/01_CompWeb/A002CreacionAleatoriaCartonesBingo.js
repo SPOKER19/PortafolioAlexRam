@@ -85,15 +85,15 @@ export const A002CreacionAleatoriaCartonesBingo = () => {
     const fxMostrarEnPantallaMazoDeCartas = () => {       
         if(mazo.length !== 0){
           return mazo.map(item => (
-              <div  className="flex flex-wrap items-center justify-around p-3 border-2"
+              <div  className="flex flex-wrap items-center justify-around px-2 py-1 "
                     key={item.ind}
               >                                                                
                   <div className='flex flex-col items-center justify-center'>
-                      <img    className='w-14 h-24' 
+                      <img    className='h-24 w-14' 
                               alt= {item.imag}
                               src= {fxObtenerImagen(item.imag)}                      
                       />  
-                       {item.nombreCarta}
+                      {/*  {item.nombreCarta} */}
                   </div>
               </div> 
           ));
@@ -139,15 +139,15 @@ export const A002CreacionAleatoriaCartonesBingo = () => {
     const fxMostrarEnPantallaMazoDeCartasAleatorias = () => {       
       if(mazoAleatorio.length !== 0){
         return mazoAleatorio.map((item, index) => (
-            <div  className="flex flex-wrap items-center justify-around p-3 border-2"
+            <div  className="flex flex-wrap items-center justify-around px-2 py-1"
                   key={index}
             >                                                                
                 <div className='flex flex-col items-center justify-center'>
-                    <img    className='w-28 h-52' 
+                    <img    className='w-16 h-24' 
                             alt= {item.imag}
                             src= {fxObtenerImagen(item.imag)}                      
                     />  
-                    {item.imag}
+                    <span className='text-xs'>{item.imag}</span>
                 </div>
             </div> 
         ));
@@ -161,35 +161,44 @@ export const A002CreacionAleatoriaCartonesBingo = () => {
    
   
   return (
-        <div className='flex flex-col items-center justify-around'> 
-          <div className='flex flex-col items-center justify-center pt-5'>
-            <button  className={`${boolCrearMazoPrincipal === true && 'opacity-30 cursor-not-allowed'}
-                                          p-4 bg-blue-600                                       
-                              ` } 
-                    disabled={boolCrearMazoPrincipal}
-                    onClick={fxCrearMazoDeCartas}
-            >
-                CREAR MAZO DE CARTAS
-            </button>
-          </div>
+        <div className='flex flex-col items-center justify-around h-full w-ful'> 
+        <div className='mt-24'></div>
+          <div className='flex flex-col items-center justify-center w-full h-full md:flex-row'>
+            <div className='flex flex-col items-center justify-center w-full h-full px-4 mt-6 md:w-1/3'>
+              <div className='flex flex-col items-center justify-center py-2 text-xs font-bold sm:text-base'>
+                <button  className={`${boolCrearMazoPrincipal === true && 'opacity-30 cursor-not-allowed -z-10'}
+                                              p-4 bg-blue-600                                        
+                                  ` } 
+                        disabled={boolCrearMazoPrincipal}
+                        onClick={fxCrearMazoDeCartas}
+                >
+                    CREAR MAZO DE CARTAS
+                </button>
+              </div>
 
-          <div className='flex flex-col items-center justify-center pt-5'>
-            <button   className={`${boolCrearMazoPrincipal === false && 'opacity-30 cursor-not-allowed'}
-                                    p-4 bg-yellow-300 text-black                                      
-                                ` } 
-                    disabled={!boolCrearMazoPrincipal}            
-                    onClick={fxCrearMazoDeCartasAleatorio}
-            >
-               CREAR MAZO ALEATORIO
-            </button>
-          </div>
+              <div className='flex flex-col items-center justify-center py-2 text-xs font-bold sm:text-base'>
+                <button   className={`${boolCrearMazoPrincipal === false && 'opacity-30 cursor-not-allowed'}
+                                        p-4 bg-yellow-300 text-black                                      
+                                    ` } 
+                        disabled={!boolCrearMazoPrincipal}            
+                        onClick={fxCrearMazoDeCartasAleatorio}
+                >
+                  CREAR MAZO ALEATORIO
+                </button>
+              </div>
+            </div>
 
-          <div className='flex flex-wrap items-center justify-center pt-6'>
-              {fxMostrarEnPantallaMazoDeCartas()}  
-          </div>
-
-          <div className='flex flex-wrap items-center justify-center pt-20'>
-              {fxMostrarEnPantallaMazoDeCartasAleatorias()}  
+            <div className='flex flex-col items-center justify-center flex-1'>
+              <p className='hidden py-5 md:flex '>MAZO DE CARTAS ORIGINALES</p>
+              <div className='flex-wrap items-center justify-center hidden pt-6 md:flex'>                  
+                  {fxMostrarEnPantallaMazoDeCartas()}  
+              </div>
+              
+              <p className='hidden translate-y-12 md:flex'>MAZO DE CARTAS ALEATORIAS</p>
+              <div className='flex flex-wrap items-center justify-center py-8 md:py-20'>
+                  {fxMostrarEnPantallaMazoDeCartasAleatorias()}  
+              </div>
+            </div>
           </div>
 
           {/* <table className="items-center justify-center w-full table-fixed">

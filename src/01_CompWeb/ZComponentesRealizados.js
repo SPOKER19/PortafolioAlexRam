@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CartonBingo from "../03_Imagenes/perfil/ComponentesRealizados/001_CartonDeBindoDelegacionEvnt.png";
-import imag02 from "../03_Imagenes/perfil/ManejoTecnologia/imag_002.png";
+import MazoCartasAleatorio from "../03_Imagenes/perfil/ComponentesRealizados/002_MazoCartasAleatorios.png";
 import imag03 from "../03_Imagenes/perfil/ManejoTecnologia/imag_003.png";
 import imag04 from "../03_Imagenes/perfil/ManejoTecnologia/imag_004.png";
 import imag05 from "../03_Imagenes/perfil/ManejoTecnologia/imag_005.png";
@@ -13,8 +13,8 @@ import imag08 from "../03_Imagenes/perfil/ManejoTecnologia/imag_008.png";
 export const ZComponentesRealizados = () => {
 
     const TrabajosRealizados = [
-        { id: 1, src: CartonBingo, titulo: "Click en Carton de Bingo", link: "/A001DelegacionEventosJS", },
-        { id: 2, src: imag02, titulo: "Mi Imagen 2" },
+        { id: 1, src: CartonBingo, titulo: "Click en Carton de Bingo", link: "/A001DelegacionEventosJS" },
+        { id: 2, src: MazoCartasAleatorio, titulo: "Mazo De Cartas Aleatorias", link: "/A002CreacionAleatoriaCartonesBingo" },
         { id: 3, src: imag03, titulo: "Mi Imagen 3" },
         { id: 4, src: imag04, titulo: "Mi Imagen 4" },
         { id: 5, src: imag05, titulo: "Mi Imagen 5" },

@@ -71,7 +71,7 @@ export const NavBar = () => {
             </div>
 
             {nav && (
-                <ul className='absolute top-0 left-0 flex flex-col items-center justify-center w-full h-screen bg-gradient-to-t from-blue-gray-800 via-blue-gray-800 to-gray-900'>
+                <ul className='absolute top-0 left-0 flex flex-col items-center justify-center w-full h-screen z-100 bg-gradient-to-t from-blue-gray-800 via-blue-gray-800 to-gray-900'>
                     {fxmostrarLinksMovil()}                
                 </ul>
             )}
