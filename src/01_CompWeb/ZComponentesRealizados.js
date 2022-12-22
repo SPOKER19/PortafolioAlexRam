@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CartonBingo from "../03_Imagenes/perfil/ComponentesRealizados/001_CartonDeBindoDelegacionEvnt.png";
 import MazoCartasAleatorio from "../03_Imagenes/perfil/ComponentesRealizados/002_MazoCartasAleatorios.png";
-import imag03 from "../03_Imagenes/perfil/ManejoTecnologia/imag_003.png";
-import imag04 from "../03_Imagenes/perfil/ManejoTecnologia/imag_004.png";
+import CompararArrays from "../03_Imagenes/perfil/ComponentesRealizados/003_CompararArrays.png";
+import NumAleatDentroRango from "../03_Imagenes/perfil/ComponentesRealizados/004_NumAleatDentroRango.png";
 import imag05 from "../03_Imagenes/perfil/ManejoTecnologia/imag_005.png";
 import imag06 from "../03_Imagenes/perfil/ManejoTecnologia/imag_006.png";
 import imag07 from "../03_Imagenes/perfil/ManejoTecnologia/imag_007.png";
@@ -15,8 +15,8 @@ export const ZComponentesRealizados = () => {
     const TrabajosRealizados = [
         { id: 1, src: CartonBingo, titulo: "Click en Carton de Bingo", link: "/A001DelegacionEventosJS" },
         { id: 2, src: MazoCartasAleatorio, titulo: "Mazo De Cartas Aleatorias", link: "/A002CreacionAleatoriaCartonesBingo" },
-        { id: 3, src: imag03, titulo: "Mi Imagen 3" },
-        { id: 4, src: imag04, titulo: "Mi Imagen 4" },
+        { id: 3, src: CompararArrays, titulo: "Comparar Arrays", link: "/A003CompararArrays"  },
+        { id: 4, src: NumAleatDentroRango, titulo: "# Aleatorio en Rango", link: "/A004NumAleatoriosDentroRango" },
         { id: 5, src: imag05, titulo: "Mi Imagen 5" },
         { id: 6, src: imag06, titulo: "Mi Imagen 6" },
         { id: 7, src: imag07, titulo: "Mi Imagen 7" },

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Buffer } from 'buffer';
 
 
 
 export const A003CompararArrays = () => {
      
+    const[ boolMostrarMsj, setBoolMostrarMsj ] = useState(false);
+
     let array1 = [1, 2, 3, 4, 6, 7, 8]
     let array2 = array1;
     let array3 = [1, 2, 3]
@@ -18,6 +20,7 @@ export const A003CompararArrays = () => {
     const buf5 = Buffer.from(array5);
 
     const fxCompararArrays = () => {
+      setBoolMostrarMsj(true);
       console.log("PREGUNTA = el Array 1 y 2 Son IGUALES = ", buf1.equals(buf2));
       console.log("PREGUNTA = el Array 1 y 3 Son IGUALES = ", buf1.equals(buf3));
       console.log("PREGUNTA = el Array 1 y 4 Son IGUALES = ", buf1.equals(buf4));
@@ -37,19 +40,27 @@ export const A003CompararArrays = () => {
       console.log("PREGUNTA = el Array 5 y 4 Son IGUALES = ", buf5.equals(buf4));
       console.log("PREGUNTA = el Array 5 y 5 Son IGUALES = ", buf5.equals(buf5));
       console.log("--------------------------------------------------------------");
+      
     }
   
     
   
   return (
-        <div className='flex flex-col items-center justify-around'>
+        <div className='flex flex-col items-center justify-around h-full w-ful'>
+          <div className='mt-24'></div>
           <div className='flex flex-col items-center justify-center pt-5'>
             <button className='p-4 bg-blue-600'
                     onClick={fxCompararArrays}
             >
                 COMPARAR ARRAYS
             </button>
-          </div>          
+          </div>    
+          <div className='flex flex-col items-center justify-center pt-14'>
+            {(boolMostrarMsj)
+              ? <div className='text-xs'> DEBE VER LA CONSOLA EN LA PC </div>
+              :  ""
+            }
+          </div>         
         </div>
   )
 }

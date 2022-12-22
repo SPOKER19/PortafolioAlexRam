@@ -57,80 +57,81 @@ export const A004NumAleatoriosDentroRango = () => {
     }
 
     return (
-        <div className='flex flex-col items-center justify-around w-full h-full text-black border-2'>
-            <div className='flex flex-col items-center justify-center w-full px-3 py-6 bg-yellow-200 xs:flex-row'>
-                <div className='flex flex-col items-center justify-center w-full space-y-2 bg-green-400 border-2 h-96 sm:w-1/2'>
+        <div className='flex flex-col items-center justify-center w-full h-full text-black'>
+            <div className='mt-24'></div>
+            <div className='flex flex-col items-center justify-center w-full h-full mt-5 bg-yellow-200 md:mt-10 xs:flex-row'>
+                <div className='flex flex-col items-center justify-center w-full h-auto space-y-2 sm:w-1/2'>
                     <div className='flex flex-col items-center justify-center w-full text-center'>
                         <span className='text-sm font-bold sm:text-lg lg:text-2xl xl:text-3xl '>
-                            NUMEROS ALEATORIOS EN JAVASCRITPS
+                            NUMEROS ALEATORIOS
                         </span>
-                    </div>
-                    <div className='flex flex-col items-center justify-center w-full text-center'>
                         <span className='text-sm font-bold sm:text-lg lg:text-2xl xl:text-3xl '>
-                            Dentro de un Rango Especifico
+                            Dentro de un Rango
                         </span>
-                    </div>
+                    </div>                    
                     <div className='flex flex-col items-center justify-center w-full'>
                         <div className="flex flex-col items-center justify-center form-control">
                             <label className="label">
-                                <span className="font-bold text-black label-text">Rango de Numeros</span>
+                                <span className="text-base font-bold text-black label-text">Rango de Numeros</span>
                             </label>
                             <div className='flex flex-col items-center justify-center w-full'>
-                                <label className="input-group">
-                                    <span  className='bg-deep-orange-300'>Desde:</span>
+                                <label className="flex justify-center item-center input-group">
+                                    <span  className='px-2 pt-3 text-sm'>Desde:</span>
                                     <input  type="number" 
                                             placeholder="Desde"                                                                                     
                                             onKeyDown={filtroPrimerNumero}
                                             onChange={fxHandlerPrimerNumero} 
                                             value={primerNumero}
                                             disabled={boolBloquearInputNumber}
-                                            className="font-extrabold input input-bordered bg-blue-gray-300 hover:bg-white"                                     
+                                            className="flex w-1/2 font-extrabold input input-bordered bg-blue-gray-300 hover:bg-white"                                     
                                     />
                                 </label> 
                                 <label className="label">
                                     <span className="font-bold text-black label-text">---------------------------</span>
                                 </label>
-                                <label className="input-group">
-                                    <span  className='bg-deep-orange-300'> Hasta : </span>
+                                <label className="flex justify-center item-center input-group">
+                                    <span  className='px-2 pt-3 text-sm'> Hasta : </span>
                                     <input  type="number" 
                                             placeholder="Hasta"                                             
                                             onKeyDown={filtroSegundoNumero}
                                             onChange={fxHandleSegundoNumero} 
                                             value={segundoNumero}
                                             disabled={boolBloquearInputNumber}
-                                            className="font-extrabold input input-bordered bg-blue-gray-300 hover:bg-white"                                     
+                                            className="flex w-1/2 font-extrabold input input-bordered bg-blue-gray-300 hover:bg-white"                                     
                                     />                                    
                                 </label> 
                             </div>
                         </div>
                         {textoValoresCorrecto}
                     </div>
-                    <div className='flex flex-col items-center justify-center w-full text-white'>
-                        <button className='flex flex-col items-center justify-center px-3 py-4 font-semibold bg-blue-800 rounded-2xl hover:bg-brown-900 hover:text-yellow-300'
-                                onClick={fxGenerarNumeroAleatorio}
-                        >
-                            Generar Numero Aleatorio
-                        </button>
-                    </div>
-                    <div className='flex flex-col items-center justify-center w-full text-white'>
-                        <button className='flex flex-col items-center justify-center px-3 py-4 font-semibold bg-red-600 rounded-2xl hover:bg-red-300 text-black'
-                                onClick={fxLimpiarVariables}
-                        >
-                            Resetear
-                        </button>
+                    <div className='flex flex-row items-center justify-center w-full py-5'>
+                        <div className='flex flex-col items-center justify-center w-full text-white'>
+                            <button className='flex flex-col items-center justify-center px-2 py-3 font-semibold bg-blue-800 rounded-2xl hover:bg-brown-900 hover:text-yellow-300'
+                                    onClick={fxGenerarNumeroAleatorio}
+                            >
+                                Generar #
+                            </button>
+                        </div>
+                        <div className='flex flex-col items-center justify-center w-full text-white'>
+                            <button className='flex flex-col items-center justify-center px-2 py-3 font-semibold text-white bg-red-600 rounded-2xl hover:bg-red-300'
+                                    onClick={fxLimpiarVariables}
+                            >
+                                Resetear
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div className='flex flex-col items-center justify-center w-full bg-green-400 border-2 h-96 sm:w-1/2'>
-                    <div className='flex flex-col items-center justify-center'>
-                        <span>Obtendra Numeros Aleatorios dentro de Estos RANGOS </span>
-                        <span>----------------------------------------------</span>
-                        <span> DESDE = { primerNumero } </span>
-                        <span>----------------------------------------------</span>
-                        <span> HASTA  = { segundoNumero } </span>
-                        <span>----------------------------------------------</span>
+                <div className='flex flex-col items-center justify-center w-full h-auto py-5 bg-green-400 sm:w-1/2'>
+                    <div className='flex flex-col items-center justify-center text-sm text-center'>
+                        <span className='font-semibold md:text-lg'>Obtendra Numeros Aleatorios dentro de Estos RANGOS </span>
+
+                        <div className='flex flex-row items-center justify-center pt-5 text-lg text-center'>
+                            <div className='mr-4 font-bold'> DESDE = { primerNumero } </div>                            
+                            <div className='font-bold'> HASTA  = { segundoNumero } </div>
+                        </div>
                     </div>
-                    <div className='flex flex-col items-center justify-center pt-6'>
-                       <span className='text-4xl font-bold bg-red-600 text-white rounded-full p-6'>
+                    <div className='flex flex-col items-center justify-center pt-3'>
+                       <span className='p-6 text-2xl font-bold text-white bg-red-600 rounded-full md:text-4xl'>
                             { numeroAleatorio }
                        </span> 
                     </div>
