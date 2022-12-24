@@ -18,7 +18,7 @@ export const RedesSociales = () => {
     const fxmostrarLinksMovil = () => {
         return  RedesSociales.map(RRSS => (
             <li key={RRSS.id}                
-                className={`${RRSS.style} flex items-center justify-between w-40 px-4 bg-gray-500 h-14 ml-[-100px] hover:ml-[-10px]`}                 
+                className={`${RRSS.style} flex items-center justify-between w-40 px-4 bg-gray-500 h-14 ml-[-120px] hover:ml-[-10px]`}                 
             >
                 <a  href={RRSS.href}
                     className='flex items-center justify-between w-full '
@@ -26,7 +26,7 @@ export const RedesSociales = () => {
                     rel="noopener noreferrer"
                 >
                     {RRSS.nombre}
-                    <span className='pt-2 text-3xl rounded-full'>
+                    <span className='pt-2 text-xl rounded-full'>
                         {RRSS.logo}
                     </span>
                 </a>                    

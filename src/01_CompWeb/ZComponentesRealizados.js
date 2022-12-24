@@ -4,10 +4,8 @@ import CartonBingo from "../03_Imagenes/perfil/ComponentesRealizados/001_CartonD
 import MazoCartasAleatorio from "../03_Imagenes/perfil/ComponentesRealizados/002_MazoCartasAleatorios.png";
 import CompararArrays from "../03_Imagenes/perfil/ComponentesRealizados/003_CompararArrays.png";
 import NumAleatDentroRango from "../03_Imagenes/perfil/ComponentesRealizados/004_NumAleatDentroRango.png";
-import imag05 from "../03_Imagenes/perfil/ManejoTecnologia/imag_005.png";
+import NumeroYLetraBingo from "../03_Imagenes/perfil/ComponentesRealizados/005_NumYLetraBingo.png";
 import imag06 from "../03_Imagenes/perfil/ManejoTecnologia/imag_006.png";
-import imag07 from "../03_Imagenes/perfil/ManejoTecnologia/imag_007.png";
-import imag08 from "../03_Imagenes/perfil/ManejoTecnologia/imag_008.png";
 
 
 export const ZComponentesRealizados = () => {
@@ -17,10 +15,10 @@ export const ZComponentesRealizados = () => {
         { id: 2, src: MazoCartasAleatorio, titulo: "Mazo De Cartas Aleatorias", link: "/A002CreacionAleatoriaCartonesBingo" },
         { id: 3, src: CompararArrays, titulo: "Comparar Arrays", link: "/A003CompararArrays"  },
         { id: 4, src: NumAleatDentroRango, titulo: "# Aleatorio en Rango", link: "/A004NumAleatoriosDentroRango" },
-        { id: 5, src: imag05, titulo: "Mi Imagen 5" },
-        { id: 6, src: imag06, titulo: "Mi Imagen 6" },
-        { id: 7, src: imag07, titulo: "Mi Imagen 7" },
-        { id: 8, src: imag08, titulo: "Mi Imagen 8" },
+        { id: 5, src: NumeroYLetraBingo, titulo: "# y Letra de Bingo", link: "/A005NumeroAleotorioYLetraBingo"  },
+        { id: 6, src: imag06, titulo: "Generar Cartones de Bingo", link: "/A006GenerarCartonesDeBingo" },
+       /* { id: 7, src: imag07, titulo: "Mi Imagen 7" },
+        { id: 8, src: imag08, titulo: "Mi Imagen 8" }, */
     ]
 
     const fxMostrarTrabajosRealizados = () => {
@@ -47,7 +45,7 @@ export const ZComponentesRealizados = () => {
   return (
     <div  name="ZComponentesRealizados" 
         className='w-full h-full text-yellow-200 bg-gradient-to-b from-black via-black to-gray-900'
-    >
+    >        
         <div className='flex flex-col items-center justify-center h-full max-w-screen-lg px-4 mx-auto pt-28 xs:pt-32'>        
             <div className='pb-8'>
                     <p className='inline text-2xl font-bold border-b-4 border-gray-500 xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl'>
