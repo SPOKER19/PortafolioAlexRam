@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import  fotoPortada  from "../03_Imagenes/perfil/home1.png";
+import  fotoPortada  from "../03_Imagenes/perfil/FotoCBW_Alex.png";
 
 export const PortafolioAlex = () => {
   return (
