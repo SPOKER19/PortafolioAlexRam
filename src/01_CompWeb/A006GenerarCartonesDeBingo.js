@@ -1,9 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Label, Radio } from 'flowbite-react';
 
 export const A006GenerarCartonesDeBingo = () => {
 
 
-    const [ arrayMatrixBINGO, setArrayMatrixBINGO ] = useState([]);      
+    const [ arrayMatrixBINGO, setArrayMatrixBINGO ] = useState([]);   
+    const [ cartonesAImprimir, setCartonesAImprimir ] = useState(0);   
+    const [ boolBotonGenerarCartones, setBoolBotonGenerarCartones ] = useState(false);  
+
+    const matrixCantidadDeCartones = [
+        { id: 1, name: "Cartones", value: 1, ItemChecked: false },
+        { id: 2, name: "Cartones", value: 2, ItemChecked: false },
+        { id: 3, name: "Cartones", value: 3, ItemChecked: false },
+        { id: 4, name: "Cartones", value: 4, ItemChecked: false },
+        { id: 5, name: "Cartones", value: 5, ItemChecked: false },
+        { id: 6, name: "Cartones", value: 6, ItemChecked: false },
+        { id: 7, name: "Cartones", value: 7, ItemChecked: false },
+        { id: 8, name: "Cartones", value: 8, ItemChecked: false },
+        { id: 9, name: "Cartones", value: 9, ItemChecked: false },
+        { id: 10, name: "Cartones", value: 10, ItemChecked: false },        
+        { id: 15, name: "Cartones", value: 15, ItemChecked: false },
+        { id: 20, name: "Cartones", value: 20, ItemChecked: false },
+        { id: 30, name: "Cartones", value: 30, ItemChecked: false },
+        { id: 40, name: "Cartones", value: 40, ItemChecked: false },
+        { id: 50, name: "Cartones", value: 50, ItemChecked: false },
+        { id: 100, name: "Cartones", value: 100, ItemChecked: false },        
+    ]
+
 
     /* const fxGenerarMatrixBINGO = () => {
         let numB = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -53,7 +76,7 @@ export const A006GenerarCartonesDeBingo = () => {
     }
     */
    
-    const fxGenerarCartonesDeBINGO = (_NroCartones) => {
+    const fxGenerarCartonesDeBINGO = (_NroCartones) => {        
         let numeroCartonesAImprimir = _NroCartones
         let carton = [];
         for(let ciclos = 1; ciclos <= numeroCartonesAImprimir; ciclos++){           
@@ -98,13 +121,12 @@ export const A006GenerarCartonesDeBingo = () => {
                 letraO: o,
             });
             setArrayMatrixBINGO([...arrayMatrixBINGO, carton]);   
+            setCartonesAImprimir(0);
             // console.log("carton = ", carton); 
         }             
-    }
-
-    //console.log("arrayMatrixBINGO = ", arrayMatrixBINGO);
+    }   
     
-    const fxMostrarTrabajosRealizados = () => {   
+    const fxMostrarCartonesDeBingos = () => {   
 
         return  arrayMatrixBINGO.map((indiceCartones) => (
                 indiceCartones.map((digitosDobles, index) => (
@@ -164,20 +186,86 @@ export const A006GenerarCartonesDeBingo = () => {
             ));   
     }
 
+    const fxCapturarCheck = (e) => {
+        setArrayMatrixBINGO([]);
+        setBoolBotonGenerarCartones(false);        
+        setCartonesAImprimir(e);
+    } 
+
+    const fxHandledCartonesDeBingo = () => {  
+        setBoolBotonGenerarCartones(true);      
+        setArrayMatrixBINGO([]);        
+        fxGenerarCartonesDeBINGO(cartonesAImprimir);
+    } 
+
+   
+    const fxMostrarMatrixCartones = () => {
+        return  matrixCantidadDeCartones.map(({ id, name, value, Checked }, index) => (            
+            <div    key={index}
+                    //className='hover:bg-light-green-900 border-2'
+                    className='flex flex-col items-center justify-center text-center w-1/5 md:w-8 hover:bg-light-green-900'
+            >
+                <Radio
+                    id={id}
+                    name={name}
+                    value={value}
+                    defaultChecked={Checked}
+                    onChange={() => fxCapturarCheck(value)}
+                />
+                <Label  htmlFor={value}>
+                    <span  className='text-white'> {value} </span>                       
+                </Label>                                
+            </div>           
+        ))     
+         
+    }
+
+    const fxResetVariables = () => {
+        setArrayMatrixBINGO([]);        
+    }
+
     return (
         <div className='flex flex-col items-center justify-center w-full h-full'>
             <div className='mt-24'></div>
-            <div>GENERAR CARTONES DE BINGO ALEATORIOS</div>
-            <div className='flex flex-col items-center justify-center pt-5'>
-                <button className='p-4 bg-blue-600'
-                        onClick={() => fxGenerarCartonesDeBINGO(2)}
-                        //onClick={fxGenerarMatrixBINGO}
-                >
-                    GENERAR MATRIX
-                </button>
+            <div className='flex flex-col items-center justify-center text-center pt-2'>
+                GENERAR CARTONES DE BINGO ALEATORIOS
+            </div>
+            <div className='flex flex-col sm:flex-row  items-center justify-center w-full'>                
+                <div className='flex flex-col justify-center items-center w-full sm:w-1/2 py-10'>
+                    <div className='flex flex-col items-center justify-center w-60 md:w-3/4'>
+                        <fieldset
+                            className="flex flex-col gap-4 border-2 bg-orange-900 p-3"
+                            id="radio"                                               
+                        >
+                            <legend className=''>
+                                Cantidad de Cartones
+                            </legend>
+                            <div className="flex flex-wrap items-center justify-around gap-2">
+                                { fxMostrarMatrixCartones() }
+                            </div>                                          
+                        </fieldset>
+                    </div>
+                    
+                </div>
+                
+                <div className='flex flex-col md:flex-row justify-center items-center w-full sm:w-1/2'>
+                    <button    className={`${boolBotonGenerarCartones === true && 'opacity-30 cursor-not-allowed'}
+                                            p-4 bg-blue-600 md:mr-8 mb-8 md:mb-0                                          
+                                        `}                                
+                                disabled={boolBotonGenerarCartones}
+                                onClick={fxHandledCartonesDeBingo}
+                    >
+                        GENERAR MATRIX
+                    </button>
+                    <button className='p-4 bg-red-600'
+                            onClick={fxResetVariables}                            
+                    >
+                        RESET
+                    </button>
+                </div>
             </div>    
-            <div className='flex flex-wrap items-center justify-around w-full px-2 border-2 border-yellow-300 py-14'>
-                { fxMostrarTrabajosRealizados()}
+            <div className='flex flex-wrap items-center justify-around w-full px-2  py-14'>
+                { fxMostrarCartonesDeBingos()}
             </div>         
         </div>
     )
