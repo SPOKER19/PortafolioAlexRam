@@ -255,7 +255,7 @@ export const A006GenerarCartonesDeBingo = () => {
                                 disabled={boolBotonGenerarCartones}
                                 onClick={fxHandledCartonesDeBingo}
                     >
-                        GENERAR MATRIX
+                        CREAR CARTONES
                     </button>
                     <button className='p-4 bg-red-600'
                             onClick={fxResetVariables}                            
