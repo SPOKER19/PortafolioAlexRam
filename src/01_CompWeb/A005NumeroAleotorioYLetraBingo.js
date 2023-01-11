@@ -229,8 +229,7 @@ export const A005NumeroAleotorioYLetraBingo = () => {
                         var celda = cells[j];
                         //console.log("cells[j].textContent =", cells[j].textContent)                       
                         if (celda.textContent.includes(searchValue)) {
-                            rows[i].getElementsByTagName("td")[j].classList.toggle(styleCelda);
-                            
+                            rows[i].getElementsByTagName("td")[j].classList.toggle(styleCelda); 
                             //rows[i].getElementsByTagName("td")[j].classList.toggle(styleCelda);                             
                             numberfound = true;
                         } 

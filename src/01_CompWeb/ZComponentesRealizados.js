@@ -6,6 +6,9 @@ import CompararArrays from "../03_Imagenes/perfil/ComponentesRealizados/003_Comp
 import NumAleatDentroRango from "../03_Imagenes/perfil/ComponentesRealizados/004_NumAleatDentroRango.png";
 import NumeroYLetraBingo from "../03_Imagenes/perfil/ComponentesRealizados/005_NumYLetraBingo.png";
 import CartonesDeBingo from "../03_Imagenes/perfil/ComponentesRealizados/006_CartonesDeBingo.png";
+import BingoAutomatizado from "../03_Imagenes/perfil/ComponentesRealizados/007_BingoAutomatizado.png";
+
+// import imag07 from "../03_Imagenes/perfil/ManejoTecnologia/imag_007.png";
 
 
 export const ZComponentesRealizados = () => {
@@ -17,7 +20,8 @@ export const ZComponentesRealizados = () => {
         { id: 4, src: NumAleatDentroRango, titulo: "# Aleatorio en Rango", link: "/A004NumAleatoriosDentroRango" },
         { id: 5, src: NumeroYLetraBingo, titulo: "# y Letra de Bingo", link: "/A005NumeroAleotorioYLetraBingo"  },
         { id: 6, src: CartonesDeBingo, titulo: "Generar Cartones de Bingo", link: "/A006GenerarCartonesDeBingo" },
-       /* { id: 7, src: imag07, titulo: "Mi Imagen 7" },
+        { id: 7, src: BingoAutomatizado,  titulo: "Bingo Automatizado", link: "/A007BingoAutomatizado" },
+        /* { id: 7, src: imag07, titulo: "Mi Imagen 7" },
         { id: 8, src: imag08, titulo: "Mi Imagen 8" }, */
     ]
 
