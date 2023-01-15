@@ -18,6 +18,7 @@ import { A005NumeroAleotorioYLetraBingo } from '../01_CompWeb/A005NumeroAleotori
 import { A006EstructuraDivisoriaPagWeb } from '../01_CompWeb/A006EstructuraDivisoriaPagWeb';
 import { A006GenerarCartonesDeBingo } from '../01_CompWeb/A006GenerarCartonesDeBingo';
 import { A007BingoAutomatizado } from '../01_CompWeb/A007BingoAutomatizado';
+import { A008ListaDeTareasUseReduce } from '../01_CompWeb/A008ListaDeTareasUseReduce';
 import { Error404 } from '../06_CompX/PagesError404/Error404';
 
 
@@ -53,6 +54,7 @@ export const RoutesMain = (props) => {
                     <Route exact path='/A006GenerarCartonesDeBingo' element = {<A006GenerarCartonesDeBingo />} />
                     <Route exact path='/A006EstructuraDivisoriaPagWeb' element = {<A006EstructuraDivisoriaPagWeb />} />
                     <Route exact path='/A007BingoAutomatizado' element = {<A007BingoAutomatizado />} />
+                    <Route exact path='/A008ListaDeTareasUseReduce' element = {<A008ListaDeTareasUseReduce />} />
 
 
                     <Route  path="*" element=   {   <Error404 />

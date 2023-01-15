@@ -15,7 +15,6 @@ export const A007BingoAutomatizado = () => {
     const [ numeroActual, setNumeroActual ] = useState(0);  
     let faltanPorSalir = numeroFinal - arrayObjetoNumerosAleatorio.length
     //  ------------------------------------------------------------  ////
-    const [ indicarCartonesConBingo, setIndicarCartonesConBingo ] = useState([]);
 
     const matrixCantidadDeCartones = [
         { id: 1, name: "Cartones", value: 1, ItemChecked: false },
@@ -189,127 +188,18 @@ export const A007BingoAutomatizado = () => {
                 if(Varlor_Celda === searchValue){
                     Obtener_Data_Filas_Carton.classList.toggle(CambiarColorCelda);
                     console.log("El numero =", searchValue, " ", "Si Existe en el ", " Carton-",(i+1), " ", "En la Celda Nro. = ", (j+1));                    
-                    fxChequearBingoEnCarton();
+                   
                 }else{}
             } 
-        }
-    }
-
-    const fxChequearBingoEnCarton = () => {  
-        console.log("CHEQUEANDO CARTON....");
-        let ColorDeFondoREDCadaCelda = [];
-        let CartonesConBingo = [];
-        let candado = false;
-
-        for (var i = 0; i < arrayMatrixBINGO[0].length; i++) {
-            var Obtener_Data_Cartones_SegunID_FX = (document.getElementById("carton-"+[i]))
-            //let Obtener_Data_Filas_Carton_FX = (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[j]).classList.contains("bg-red-600") 
-            //console.log("VALOR1 = ", VALOR1, " ", "En el Carton con Indice = ", i);  
-            //var ID_CARTON = Obtener_Data_Cartones_SegunID.id
-            //console.log("ID_CARTON =", ID_CARTON);
-
-            let celda01 = ({IDCarton: "carton-"+[i], Celda: 1, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[0]).classList.contains("bg-red-600")});
-            let celda02 = ({IDCarton: "carton-"+[i], Celda: 2, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[1]).classList.contains("bg-red-600")});
-            let celda03 = ({IDCarton: "carton-"+[i], Celda: 3, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[2]).classList.contains("bg-red-600")});
-            let celda04 = ({IDCarton: "carton-"+[i], Celda: 4, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[3]).classList.contains("bg-red-600")});
-            let celda05 = ({IDCarton: "carton-"+[i], Celda: 5, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[4]).classList.contains("bg-red-600")});
-            let celda06 = ({IDCarton: "carton-"+[i], Celda: 6, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[5]).classList.contains("bg-red-600")});
-            let celda07 = ({IDCarton: "carton-"+[i], Celda: 7, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[6]).classList.contains("bg-red-600")});
-            let celda08 = ({IDCarton: "carton-"+[i], Celda: 8, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[7]).classList.contains("bg-red-600")});
-            let celda09 = ({IDCarton: "carton-"+[i], Celda: 9, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[8]).classList.contains("bg-red-600")});
-            let celda10 = ({IDCarton: "carton-"+[i], Celda: 10, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[9]).classList.contains("bg-red-600")});
-            let celda11 = ({IDCarton: "carton-"+[i], Celda: 11, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[10]).classList.contains("bg-red-600")});
-            let celda12 = ({IDCarton: "carton-"+[i], Celda: 12, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[11]).classList.contains("bg-red-600")});
-            let celda13 = ({IDCarton: "carton-"+[i], Celda: 13, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[12]).classList.contains("bg-red-600")});
-            let celda14 = ({IDCarton: "carton-"+[i], Celda: 14, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[13]).classList.contains("bg-red-600")});
-            let celda15 = ({IDCarton: "carton-"+[i], Celda: 15, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[14]).classList.contains("bg-red-600")});
-            let celda16 = ({IDCarton: "carton-"+[i], Celda: 16, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[15]).classList.contains("bg-red-600")});
-            let celda17 = ({IDCarton: "carton-"+[i], Celda: 17, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[16]).classList.contains("bg-red-600")});
-            let celda18 = ({IDCarton: "carton-"+[i], Celda: 18, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[17]).classList.contains("bg-red-600")});
-            let celda19 = ({IDCarton: "carton-"+[i], Celda: 19, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[18]).classList.contains("bg-red-600")});
-            let celda20 = ({IDCarton: "carton-"+[i], Celda: 20, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[19]).classList.contains("bg-red-600")});
-            let celda21 = ({IDCarton: "carton-"+[i], Celda: 21, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[20]).classList.contains("bg-red-600")});
-            let celda22 = ({IDCarton: "carton-"+[i], Celda: 22, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[21]).classList.contains("bg-red-600")});
-            let celda23 = ({IDCarton: "carton-"+[i], Celda: 23, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[22]).classList.contains("bg-red-600")});
-            let celda24 = ({IDCarton: "carton-"+[i], Celda: 24, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[23]).classList.contains("bg-red-600")});
-            let celda25 = ({IDCarton: "carton-"+[i], Celda: 25, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[24]).classList.contains("bg-red-600")});
-            
-            setIndicarCartonesConBingo([...indicarCartonesConBingo,
-                {IDCarton: "carton-"+[i],                                               
-                CincoEnLineaHorizontalLinea01: false,
-                CincoEnLineaHorizontalLinea02: false,
-                CincoEnLineaHorizontalLinea03: false,
-                CincoEnLineaHorizontalLinea04: false,
-                CincoEnLineaHorizontalLinea05: false,
-                CuatroEsquinas: false,} 
-            ]);
-            
-            
-            if(candado === false){  
-                
-                         
-                if(celda01.FondoRed === true &&  celda02.FondoRed === true && celda03.FondoRed === true && celda04.FondoRed === true && celda05.FondoRed === true){                    
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea01 = true]);
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-2................" )  
-                }else{}
-
-                if(celda06.FondoRed === true &&  celda07.FondoRed === true && celda08.FondoRed === true && celda09.FondoRed === true && celda10.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea02 = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-2................" )                    
-                }else{}
-
-                if(celda11.FondoRed === true &&  celda12.FondoRed === true && celda13.FondoRed === true && celda14.FondoRed === true && celda15.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea03 = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-3................" )                    
-                }else{}
-
-                if(celda16.FondoRed === true &&  celda17.FondoRed === true && celda18.FondoRed === true && celda19.FondoRed === true && celda20.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea04 = true]);                   
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-4................" )                    
-                }else{}
-
-                if(celda21.FondoRed === true &&  celda22.FondoRed === true && celda23.FondoRed === true && celda24.FondoRed === true && celda25.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea05 = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-5................" )                    
-                }else{}
-
-
-                if(celda01.FondoRed === true &&  celda05.FondoRed === true && celda21.FondoRed === true && celda25.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CuatroEsquinas = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 4 ESQUINAS................" )
-                }else{
-                    console.log("Este Carton todavia no ha hecho Bingo")
-                }     
-                
-            }else{
-               
-            } 
-
-
-          
-            for (var j = 0; j < 25; j++) {
-                let Obtener_Data_Filas_Carton_FX = (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[j]).classList.contains("bg-red-600") 
-                //console.log("Obtener_Data_Filas_Carton_FX = ", Obtener_Data_Filas_Carton_FX);                                   
-                ColorDeFondoREDCadaCelda.push({
-                    IDCarton: "carton-"+[i],
-                    Celda: j+1,                        
-                    FondoRed: Obtener_Data_Filas_Carton_FX
-                });
-                //setCeldasFondoRed()               
-            } 
-            
-        }
-        //console.log("CartonesConBingo = ", CartonesConBingo);
-        
-    }
-
+        }       
+    }    
 
     const fxMostrarCartonesDeBingos = () => {   
         /* console.log("indiceCartones = ", indiceCartones, " ","index1 = ", index1, " ", "digitosDobles = ", digitosDobles, " ", "index =", index) */
         return  arrayMatrixBINGO.map((indiceCartones, index1) => (  
                  indiceCartones.map((digitosDobles, index) => (                    
                     <table  key={index}
-                            className="items-center justify-center table m-2 border-2"  
+                            className="items-center justify-center table m-2"  
                     >
                         <thead className="">
                             <tr className="">                                
@@ -358,19 +248,7 @@ export const A007BingoAutomatizado = () => {
                                 <td id={digitosDobles.letraN[4]} className="p-3 font-bold text-gray-200 border-2 border-white "> {digitosDobles.letraN[4]}  </td>
                                 <td id={digitosDobles.letraG[4]} className="p-3 font-bold text-gray-200 border-2 border-white "> {digitosDobles.letraG[4]}  </td>
                                 <td id={digitosDobles.letraO[4]} className="p-3 font-bold text-gray-200 border-2 border-white "> {digitosDobles.letraO[4]}  </td>
-                            </tr>  
-                            <tr>
-                                <td colSpan={4}>
-                                    Cuatro Esquinas
-                                </td>
-                                <td>
-                                   {console.log("indicarCartonesConBingo = ", indicarCartonesConBingo)}
-                                  {/* { ((("carton-"+index) === indicarCartonesConBingo.IDCarton) &&  (indicarCartonesConBingo.CuatroEsquinas === true))
-                                    ?  "SI"
-                                    :  ""
-                                   } */}
-                                </td>                               
-                            </tr>                         
+                            </tr>                           
                         </tbody>  
                                                 
                     </table>
@@ -415,8 +293,7 @@ export const A007BingoAutomatizado = () => {
         setArrayMatrixBINGO([]); 
         setArrayObjetoNumerosAleatorio([]);
         setNumeroActual(0); 
-        setBoolBotonGenerarCartones(false);  
-        setIndicarCartonesConBingo([]);    
+        setBoolBotonGenerarCartones(false);      
     }
 
     return (
