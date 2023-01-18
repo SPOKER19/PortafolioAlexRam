@@ -22,7 +22,8 @@ export const ZComponentesRealizados = () => {
         { id: 5, src: NumeroYLetraBingo, titulo: "# y Letra de Bingo", link: "/A005NumeroAleotorioYLetraBingo"  },
         { id: 6, src: CartonesDeBingo, titulo: "Generar Cartones de Bingo", link: "/A006GenerarCartonesDeBingo" },
         { id: 7, src: BingoAutomatizado,  titulo: "Bingo Automatizado", link: "/A007BingoAutomatizado" },
-        { id: 8, src: imag07, titulo: "Lista De Tareas USEREDUCER", link: "/A008ListaDeTareasUseReduce" }
+        { id: 8, src: imag07, titulo: "Lista De Tareas USEREDUCER", link: "/A008ListaDeTareasUseReduce" },
+        { id: 9, src: imag07, titulo: "Lista Productos + Carrito Compras", link: "/A009ListaDeProductosCarritoCompra" },
         /* { id: 7, src: imag07, titulo: "Mi Imagen 7" },
         { id: 8, src: imag08, titulo: "Mi Imagen 8" }, */
     ]
