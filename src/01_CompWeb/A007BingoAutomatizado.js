@@ -700,16 +700,17 @@ export const A007BingoAutomatizado = () => {
             ));   
     } 
   
-    const fxHandledCartonesDeBingo = () => {  
-        setBoolBotonGenerarCartones(true);      
+    const fxHandledCartonesDeBingo = () => { 
+        let fdhbEnMemoria = dataFormaDeHacerBG  && dataFormaDeHacerBG.FormaDeHacerBingo;
+        setBoolBotonGenerarCartones(true);  
+        fxVariasFormasDeHacerBingo(fdhbEnMemoria);      
         setArrayMatrixBINGO([]);        
         fxGenerarCartonesDeBINGO(cartonesAImprimir);
     } 
 
     const fxCapturarCheckFDHBG = (e) => {
         let VarFDHBG = {FormaDeHacerBingo: e, FDHBG: true}
-        //console.log("Variable pasada FORMA DE HACER BINGO :", e);  
-        fxVariasFormasDeHacerBingo(e);  
+        //console.log("Variable pasada FORMA DE HACER BINGO :", e); 
         setDataFormaDeHacerBG(VarFDHBG);  
     } 
     
