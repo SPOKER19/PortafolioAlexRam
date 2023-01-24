@@ -825,9 +825,9 @@ export const A007BingoAutomatizado = () => {
             <div className='flex flex-col items-center justify-center w-full pt-2 text-center lg:pt-0'>
                 <span className='text-xl font-semibold underline sm:text-2xl md:text-3xl'>BINGO AUTOMATIZADO</span>
             </div>
-            <div className='flex items-center justify-center w-full border-2 flex-wrap h-auto'>                
+            <div className='flex items-center justify-center w-full flex-wrap h-auto'>                
                 <div    className={`${boolBotonGenerarCartones === true && 'hidden'}
-                               flex flex-col items-center justify-center w-full py-4 border-2 sm:w-1/2 lg:w-1/4 border-lime-500 min-h-60                                      
+                               flex flex-col items-center justify-center w-full py-4 sm:w-1/2 lg:w-1/4 min-h-60                                      
                              `}
                 >
                     <div className='flex flex-col items-center justify-center w-60 md:w-full h-full '>
@@ -900,7 +900,7 @@ export const A007BingoAutomatizado = () => {
                         </div> */}
                     </div>                    
                 </div>
-                <div className='flex flex-col items-center justify-center w-full border-2 border-red-500 sm:w-1/2 lg:w-1/4 h-60'>
+                <div className='flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 h-60'>
                     <div className='flex flex-col items-center justify-center w-60 border-4 border-green-800'>
                         <div className='flex flex-col items-center justify-center h-12 bg-green-400 w-full'>
                             <div className='text-sm underline text-gray-800'> Forma de Hacer Bingo:</div>
@@ -935,7 +935,7 @@ export const A007BingoAutomatizado = () => {
                     </div>
                 </div>
                 
-                <div className='flex flex-col items-center justify-center w-full py-5 border-2 border-red-500  lg:w-1/2'>
+                <div className='flex flex-col items-center justify-center w-full py-5  lg:w-1/2'>
                     
                     <div className='flex flex-row items-center justify-center pt-5 w-full border-y-4'>                       
                         <div className='flex flex-row items-center justify-around w-full mb-5 md:w-1/2 '>
