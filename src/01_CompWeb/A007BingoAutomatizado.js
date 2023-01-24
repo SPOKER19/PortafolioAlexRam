@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { Label, Radio } from 'flowbite-react';
+import { Accordion, Label, Radio } from 'flowbite-react';
 
 export const A007BingoAutomatizado = () => {
 
 
-    const [ arrayMatrixBINGO, setArrayMatrixBINGO ] = useState([]);   
+    const [ arrayMatrixBINGO, setArrayMatrixBINGO ] = useState([]); 
     const [ cartonesAImprimir, setCartonesAImprimir ] = useState(0);   
     const [ boolBotonGenerarCartones, setBoolBotonGenerarCartones ] = useState(false);  
     //  ------------------------------------------------------------  ////
@@ -14,18 +14,114 @@ export const A007BingoAutomatizado = () => {
     const [ arrayObjetoNumerosAleatorio, setArrayObjetoNumerosAleatorio ] = useState([]);
     const [ numeroActual, setNumeroActual ] = useState(0);  
     let faltanPorSalir = numeroFinal - arrayObjetoNumerosAleatorio.length
-    //  ------------------------------------------------------------  ////
-    const [ indicarCartonesConBingo, setIndicarCartonesConBingo ] = useState([]);
+    //  ------------------------------------------------------------  ////    
+    
+    const [ dataFormaDeHacerBG, setDataFormaDeHacerBG ]  = useState (null);
+    const [ dataCantidadNroASalir, setDataCantidadNroASalir ]  = useState (null);
+    const [ dataCantidadCartAImp, setDataCantidadCartAImp ]  = useState (null);
+    //  ------------------------------------------------------------  //// 
+    const [ boolFDHBTLasAnt, setBoolFDHBTLasAnt ] = useState(false); 
+    const [ boolFDHBCualqColumna, setBoolFDHBCualqColumna ] = useState(false); 
+    const [ boolFDHBCualqFila, setBoolFDHBCualqFila ] = useState(false); 
+    const [ boolSoloDiagonales, setBoolSoloDiagonales ] = useState(false); 
+    const [ boolCruzGrandyPeq, setBoolCruzGrandyPeq ] = useState(false); 
+
+    const mostEnCartFDHB = dataFormaDeHacerBG && dataFormaDeHacerBG.FormaDeHacerBingo;
+    //console.log("mostEnCartFDHB = ", mostEnCartFDHB);
+
+    const matrizFormaDeHacerBingo = [
+        { id: 1, name: "FormasDHBingo", value: "Cuatro Esquinas", ItemChecked: false },
+        { id: 2, name: "FormasDHBingo", value: "5 en Linea Horiz Linea 1", ItemChecked: false },
+        { id: 3, name: "FormasDHBingo", value: "5 en Linea Horiz Linea 2", ItemChecked: false },  
+        { id: 4, name: "FormasDHBingo", value: "5 en Linea Horiz Linea 3", ItemChecked: false },        
+        { id: 5, name: "FormasDHBingo", value: "5 en Linea Horiz Linea 4", ItemChecked: false },
+        { id: 6, name: "FormasDHBingo", value: "5 en Linea Horiz Linea 5", ItemChecked: false },  
+        { id: 7, name: "FormasDHBingo", value: "Cruz Grande", ItemChecked: false },
+        { id: 8, name: "FormasDHBingo", value: "Cruz Pequeña", ItemChecked: false },  
+        { id: 9, name: "FormasDHBingo", value: "5 en Linea Vert Colum B", ItemChecked: false }, 
+        { id: 10, name: "FormasDHBingo", value: "5 en Linea Vert Colum I", ItemChecked: false },
+        { id: 11, name: "FormasDHBingo", value: "5 en Linea Vert Colum N", ItemChecked: false },
+        { id: 12, name: "FormasDHBingo", value: "5 en Linea Vert Colum G", ItemChecked: false },
+        { id: 13, name: "FormasDHBingo", value: "5 en Linea Vert Colum O", ItemChecked: false },
+        { id: 14, name: "FormasDHBingo", value: "Diagonal de B a O", ItemChecked: false },
+        { id: 15, name: "FormasDHBingo", value: "Diagonal de O a B", ItemChecked: false },
+        { id: 16, name: "FormasDHBingo", value: "Todas Las Anteriores", ItemChecked: false },
+        //******************************************************************************* */
+        { id: 17, name: "FormasDHBingo", value: "Carton Lleno", ItemChecked: false },
+        { id: 18, name: "FormasDHBingo", value: "Cualq. De Las Columnas", ItemChecked: false },  
+        { id: 19, name: "FormasDHBingo", value: "Cualq. De Las Filas", ItemChecked: false }, 
+        { id: 20, name: "FormasDHBingo", value: "Solo Diagonales BaO y OaB", ItemChecked: false },
+        { id: 21, name: "FormasDHBingo", value: "Solo Cruz G. y Cruz Peq.", ItemChecked: false },  
+    ] 
+
+    const fxVariasFormasDeHacerBingo = (_FDHB) => {
+        let fdhbTodasLasAnteriores = false;
+        if(_FDHB === "Todas Las Anteriores"){
+            fdhbTodasLasAnteriores = true;
+            setBoolFDHBTLasAnt(true);
+            return fdhbTodasLasAnteriores;
+        }
+        if(_FDHB === "Cualq. De Las Columnas"){
+            fdhbTodasLasAnteriores = true;
+            setBoolFDHBCualqColumna(true);            
+            return fdhbTodasLasAnteriores;
+        }
+        if(_FDHB === "Cualq. De Las Filas"){
+            fdhbTodasLasAnteriores = true;
+            setBoolFDHBCualqFila(true);            
+            return fdhbTodasLasAnteriores;
+        }
+        if(_FDHB === "Solo Diagonales BaO y OaB"){
+            fdhbTodasLasAnteriores = true;
+            setBoolSoloDiagonales(true);            
+            return fdhbTodasLasAnteriores;
+        }
+        if(_FDHB === "Solo Cruz G. y Cruz Peq."){
+            fdhbTodasLasAnteriores = true;
+            setBoolCruzGrandyPeq(true);            
+            return fdhbTodasLasAnteriores;
+        }else{}
+    }
+
+    const matrizCantEsferasASalir = [
+        { id: 1, name: "CantDEsferasASalir", value: 30, ItemChecked: false },
+        { id: 2, name: "CantDEsferasASalir", value: 35, ItemChecked: false },
+        { id: 3, name: "CantDEsferasASalir", value: 40, ItemChecked: false },  
+        { id: 4, name: "CantDEsferasASalir", value: 45, ItemChecked: false },        
+        { id: 5, name: "CantDEsferasASalir", value: 50, ItemChecked: false },
+        { id: 6, name: "CantDEsferasASalir", value: 51, ItemChecked: false },  
+        { id: 7, name: "CantDEsferasASalir", value: 52, ItemChecked: false },
+        { id: 8, name: "CantDEsferasASalir", value: 53, ItemChecked: false },  
+        { id: 9, name: "CantDEsferasASalir", value: 54, ItemChecked: false }, 
+        { id: 10, name: "CantDEsferasASalir", value: 55, ItemChecked: false },
+        { id: 11, name: "CantDEsferasASalir", value: 56, ItemChecked: false },
+        { id: 12, name: "CantDEsferasASalir", value: 57, ItemChecked: false },
+        { id: 14, name: "CantDEsferasASalir", value: 58, ItemChecked: false },
+        { id: 15, name: "CantDEsferasASalir", value: 59, ItemChecked: false },
+        { id: 16, name: "CantDEsferasASalir", value: 60, ItemChecked: false },
+        { id: 17, name: "CantDEsferasASalir", value: 65, ItemChecked: false },
+        { id: 18, name: "CantDEsferasASalir", value: 70, ItemChecked: false },
+        { id: 19, name: "CantDEsferasASalir", value: 75, ItemChecked: false },
+    ] 
 
     const matrixCantidadDeCartones = [
         { id: 1, name: "Cartones", value: 1, ItemChecked: false },
         { id: 2, name: "Cartones", value: 2, ItemChecked: false },
-        { id: 3, name: "Cartones", value: 3, ItemChecked: false },  
-        { id: 10, name: "Cartones", value: 10, ItemChecked: false },        
-        { id: 15, name: "Cartones", value: 15, ItemChecked: false },
-        { id: 20, name: "Cartones", value: 20, ItemChecked: false },                 
+        { id: 3, name: "Cartones", value: 3, ItemChecked: false }, 
+        { id: 4, name: "Cartones", value: 4, ItemChecked: false },
+        { id: 5, name: "Cartones", value: 5, ItemChecked: false },
+        { id: 6, name: "Cartones", value: 10, ItemChecked: false },
+        { id: 7, name: "Cartones", value: 15, ItemChecked: false }, 
+        { id: 8, name: "Cartones", value: 20, ItemChecked: false },        
+        { id: 9, name: "Cartones", value: 25, ItemChecked: false },
+        { id: 10, name: "Cartones", value: 30, ItemChecked: false },     
+        { id: 11, name: "Cartones", value: 40, ItemChecked: false },       
+        { id: 12, name: "Cartones", value: 50, ItemChecked: false },       
+        { id: 13, name: "Cartones", value: 100, ItemChecked: false },
     ]  
-    
+
+
+    //****************************************************************************************************************************** */
     // FX VALIDAR SI EXISTE DATO EN ARRAY TIPO OBJETO
     function fxValidarDatoEnArrayObjet (_valorABuscar) {         
         let valor = arrayObjetoNumerosAleatorio.findIndex((item) => item.numeroBola === _valorABuscar);
@@ -43,14 +139,14 @@ export const A007BingoAutomatizado = () => {
     }
    
     // FX PARA OBTENER UN NUMERO ALEATORIO
-    const fxObtenerNumAleatorioDeBingo = () => {   
-
-        if(arrayObjetoNumerosAleatorio.length < 75){ 
+    const fxObtenerNumAleatorioDeBingo = () => { 
+        let CantNumASalir = dataCantidadNroASalir  && dataCantidadNroASalir.CantidadNumerosASalir;
+        // console.log("CantNumASalir = ", CantNumASalir);
+        if(arrayObjetoNumerosAleatorio.length < CantNumASalir){ 
             let numeroRamdom = PadLeft(Math.floor(Math.random()*(numeroFinal - numeroInicial + 1) + numeroInicial));
             //console.log("numeroRamdom = ", numeroRamdom);    
             var indice = fxValidarDatoEnArrayObjet(numeroRamdom);
-            //console.log("indice = ", indice);        
-                            
+            //console.log("indice = ", indice);  
             if(indice === false){  
                 //console.log("Valor Ramdom = ", numeroRamdom);          
                 switch (true) {                    
@@ -96,7 +192,7 @@ export const A007BingoAutomatizado = () => {
                     break
                 } 
 
-                fxMarcarNumeroEnCarton(numeroRamdom);                
+                fxMarcarNumeroEnCarton(numeroRamdom); 
 
             }else{
                 //console.log("Valor de Indice DUPLICADO IndexOF = ", indice);
@@ -104,8 +200,9 @@ export const A007BingoAutomatizado = () => {
             }
         }else{
             // alert("YA SE LLENO EL ARRAY CON 75 POSICIONES");
+            let msjNumerosCompletados = dataCantidadNroASalir && dataCantidadNroASalir.CantidadNumerosASalir + " Numeros definidos, Fueron Sacados Con Exito ";
             Swal.fire({
-                title: 'Los 75 Numeros ya Salieron',
+                title: msjNumerosCompletados,
                 showClass: {
                   popup: 'animate__animated animate__fadeInDown'
                 },
@@ -115,10 +212,11 @@ export const A007BingoAutomatizado = () => {
               })
         }           
     }
+    //****************************************************************************************************************************** */
 
-
-    const fxGenerarCartonesDeBINGO = (_NroCartones) => {        
-        let numeroCartonesAImprimir = _NroCartones
+    const fxGenerarCartonesDeBINGO = (_NroCartones) => { 
+        let numeroCartonesAImprimir = _NroCartones;
+        let contadorCartones = 1;
         let carton = [];
         for(let ciclos = 1; ciclos <= numeroCartonesAImprimir; ciclos++){           
             let numB = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"];
@@ -155,24 +253,33 @@ export const A007BingoAutomatizado = () => {
                 numO.splice(indiceNumeroRamdomO, 1);  
             }              
             carton.push({
+                IDCartonBingo: Date.now()+"-"+contadorCartones,
+                cartonID: "CARTON-"+[contadorCartones],
                 letraB: b,
                 letraI: i,                        
                 letraN: n,
                 letraG: g,
                 letraO: o,
+                Bingo: false,
+                CuatroEsquinas: false,
+                CincoEnLHL1: false, CincoEnLHL2: false, CincoEnLHL3: false, CincoEnLHL4: false, CincoEnLHL5: false,
+                CincoEnLVCB: false, CincoEnLVCI: false, CincoEnLVCN: false, CincoEnLVCG: false, CincoEnLVCO: false,
+                CruzGrande: false, CruzPeq: false, CartonLleno: false, DiagonalBaO: false, DiagonalOaB: false
             });
             setArrayMatrixBINGO([...arrayMatrixBINGO, carton]);   
             setCartonesAImprimir(0);
-            // console.log("carton = ", carton); 
+            contadorCartones++;
+            //console.log("carton = ", carton); 
         }             
-    }      
+    }    
+    
 
     const fxMarcarNumeroEnCarton = (e) => {  
         let CambiarColorCelda = "bg-red-600";  
-        console.log("-------------------------------------------------");
-        console.log("Cantidad de Cartones a Imprimir = ", arrayMatrixBINGO[0].length);        
+        //console.log("-------------------------------------------------");
+        //console.log("Cantidad de Cartones a Imprimir = ", arrayMatrixBINGO[0].length);        
         var searchValue = e.toString();
-        console.log("Numero a Buscar dentro del Carton = ", searchValue); 
+        //console.log("Numero a Buscar dentro del Carton = ", searchValue); 
         
         
         for (var i = 0; i < arrayMatrixBINGO[0].length; i++) {
@@ -188,7 +295,7 @@ export const A007BingoAutomatizado = () => {
                 //console.log("rows2 =", rows2); 
                 if(Varlor_Celda === searchValue){
                     Obtener_Data_Filas_Carton.classList.toggle(CambiarColorCelda);
-                    console.log("El numero =", searchValue, " ", "Si Existe en el ", " Carton-",(i+1), " ", "En la Celda Nro. = ", (j+1));                    
+                    //console.log("El numero =", searchValue, " ", "Si Existe en el ", " Carton-",(i+1), " ", "En la Celda Nro. = ", (j+1));                    
                     fxChequearBingoEnCarton();
                 }else{}
             } 
@@ -196,9 +303,8 @@ export const A007BingoAutomatizado = () => {
     }
 
     const fxChequearBingoEnCarton = () => {  
-        console.log("CHEQUEANDO CARTON....");
+        //console.log("CHEQUEANDO CARTON....");
         let ColorDeFondoREDCadaCelda = [];
-        let CartonesConBingo = [];
         let candado = false;
 
         for (var i = 0; i < arrayMatrixBINGO[0].length; i++) {
@@ -234,52 +340,142 @@ export const A007BingoAutomatizado = () => {
             let celda24 = ({IDCarton: "carton-"+[i], Celda: 24, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[23]).classList.contains("bg-red-600")});
             let celda25 = ({IDCarton: "carton-"+[i], Celda: 25, FondoRed: (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[24]).classList.contains("bg-red-600")});
             
-            setIndicarCartonesConBingo([...indicarCartonesConBingo,
-                {IDCarton: "carton-"+[i],                                               
-                CincoEnLineaHorizontalLinea01: false,
-                CincoEnLineaHorizontalLinea02: false,
-                CincoEnLineaHorizontalLinea03: false,
-                CincoEnLineaHorizontalLinea04: false,
-                CincoEnLineaHorizontalLinea05: false,
-                CuatroEsquinas: false,} 
-            ]);
+            let fondoRedLineaHL1 = celda01.FondoRed === true &&  celda02.FondoRed === true && celda03.FondoRed === true && celda04.FondoRed === true && celda05.FondoRed === true;
+            let fondoRedLineaHL2 = celda06.FondoRed === true &&  celda07.FondoRed === true && celda08.FondoRed === true && celda09.FondoRed === true && celda10.FondoRed === true;
+            let fondoRedLineaHL3 = celda11.FondoRed === true &&  celda12.FondoRed === true && celda13.FondoRed === true && celda14.FondoRed === true && celda15.FondoRed === true;
+            let fondoRedLineaHL4 = celda16.FondoRed === true &&  celda17.FondoRed === true && celda18.FondoRed === true && celda19.FondoRed === true && celda20.FondoRed === true;
+            let fondoRedLineaHL5 = celda21.FondoRed === true &&  celda22.FondoRed === true && celda23.FondoRed === true && celda24.FondoRed === true && celda25.FondoRed === true;
+            let fondoRed4Esquinas = celda01.FondoRed === true &&  celda05.FondoRed === true && celda21.FondoRed === true && celda25.FondoRed === true;
+            let fondoRedCruzGrande = celda03.FondoRed === true &&  celda11.FondoRed === true && celda15.FondoRed === true && celda23.FondoRed === true;
+            let fondoRedCruzPeq = celda08.FondoRed === true &&  celda12.FondoRed === true && celda14.FondoRed === true && celda18.FondoRed === true;
+            let fondoRedColumnaVLetraB = celda01.FondoRed === true &&  celda06.FondoRed === true && celda11.FondoRed === true && celda16.FondoRed === true && celda21.FondoRed === true;
+            let fondoRedColumnaVLetraI = celda02.FondoRed === true &&  celda07.FondoRed === true && celda12.FondoRed === true && celda17.FondoRed === true && celda22.FondoRed === true;
+            let fondoRedColumnaVLetraN = celda03.FondoRed === true &&  celda08.FondoRed === true && celda13.FondoRed === true && celda18.FondoRed === true && celda23.FondoRed === true;
+            let fondoRedColumnaVLetraG = celda04.FondoRed === true &&  celda09.FondoRed === true && celda14.FondoRed === true && celda19.FondoRed === true && celda24.FondoRed === true;
+            let fondoRedColumnaVLetraO = celda05.FondoRed === true &&  celda10.FondoRed === true && celda15.FondoRed === true && celda20.FondoRed === true && celda25.FondoRed === true;
+            let fondoRedDiagonalBaO = celda01.FondoRed === true &&  celda07.FondoRed === true && celda13.FondoRed === true && celda19.FondoRed === true && celda25.FondoRed === true;
+            let fondoRedDiagonalOaB = celda05.FondoRed === true &&  celda09.FondoRed === true && celda13.FondoRed === true && celda17.FondoRed === true && celda21.FondoRed === true;
+            let fondoRedCartonLleno = ( celda01.FondoRed === true &&  celda06.FondoRed === true && celda11.FondoRed === true && celda16.FondoRed === true && celda21.FondoRed === true &&
+                                        celda02.FondoRed === true &&  celda07.FondoRed === true && celda12.FondoRed === true && celda17.FondoRed === true && celda22.FondoRed === true &&
+                                        celda03.FondoRed === true &&  celda08.FondoRed === true && celda13.FondoRed === true && celda18.FondoRed === true && celda23.FondoRed === true &&
+                                        celda04.FondoRed === true &&  celda09.FondoRed === true && celda14.FondoRed === true && celda19.FondoRed === true && celda24.FondoRed === true &&
+                                        celda05.FondoRed === true &&  celda10.FondoRed === true && celda15.FondoRed === true && celda20.FondoRed === true && celda25.FondoRed === true );
             
-            
+
             if(candado === false){  
-                
                          
-                if(celda01.FondoRed === true &&  celda02.FondoRed === true && celda03.FondoRed === true && celda04.FondoRed === true && celda05.FondoRed === true){                    
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea01 = true]);
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-2................" )  
+                if(fondoRedLineaHL1){                    
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CincoEnLHL1 = true 
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA HORIZONTAL LINEA-1................" )  
                 }else{}
 
-                if(celda06.FondoRed === true &&  celda07.FondoRed === true && celda08.FondoRed === true && celda09.FondoRed === true && celda10.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea02 = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-2................" )                    
+                if(fondoRedLineaHL2){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CincoEnLHL2 = true  
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA HORIZONTAL LINEA-2................" )                    
                 }else{}
 
-                if(celda11.FondoRed === true &&  celda12.FondoRed === true && celda13.FondoRed === true && celda14.FondoRed === true && celda15.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea03 = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-3................" )                    
+                if(fondoRedLineaHL3){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CincoEnLHL3 = true  
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA HORIZONTAL LINEA-3................" )                    
                 }else{}
 
-                if(celda16.FondoRed === true &&  celda17.FondoRed === true && celda18.FondoRed === true && celda19.FondoRed === true && celda20.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea04 = true]);                   
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-4................" )                    
+                if(fondoRedLineaHL4){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CincoEnLHL4 = true  
+                   // console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA HORIZONTAL LINEA-4................" )                    
                 }else{}
 
-                if(celda21.FondoRed === true &&  celda22.FondoRed === true && celda23.FondoRed === true && celda24.FondoRed === true && celda25.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CincoEnLineaHorizontalLinea05 = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 5 EN LINEA LINEA-5................" )                    
+                if(fondoRedLineaHL5){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CincoEnLHL5 = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA HORIZONTAL LINEA-5................" )                    
                 }else{}
 
+                if(fondoRed4Esquinas){
+                        let CartonIDultimo = "CARTON-"+[i+1];
+                        let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                        ElementoEncontrado.CuatroEsquinas = true
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 4 ESQUINAS................" )
+                }else{}  
+                
+                if(fondoRedCruzGrande){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CruzGrande = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO CRUZ GRANDE................" )                    
+                }else{}
 
-                if(celda01.FondoRed === true &&  celda05.FondoRed === true && celda21.FondoRed === true && celda25.FondoRed === true){
-                    setIndicarCartonesConBingo([...indicarCartonesConBingo, indicarCartonesConBingo.CuatroEsquinas = true]);                    
-                    console.log("El Carton Nro.", "carton-"+[i], "HIZO BINGO 4 ESQUINAS................" )
-                }else{
-                    console.log("Este Carton todavia no ha hecho Bingo")
-                }     
+                if(fondoRedCruzPeq){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CruzPeq = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO CRUZ PEQUEÑA CENTRAL ................" )                    
+                }else{}
+
+                if(fondoRedColumnaVLetraB){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo) 
+                    ElementoEncontrado.CincoEnLVCB = true 
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  B................" )                    
+                }else{}
+
+                if(fondoRedColumnaVLetraI){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)                      
+                    ElementoEncontrado.CincoEnLVCI = true 
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  I................" )                    
+                }else{}
+
+                if(fondoRedColumnaVLetraN){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)
+                    ElementoEncontrado.CincoEnLVCN = true   
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  N................" )                    
+                }else{}
+
+                if(fondoRedColumnaVLetraG){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)                       
+                    ElementoEncontrado.CincoEnLVCG = true 
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  G ................" )                    
+                }else{}
+
+                if(fondoRedColumnaVLetraO){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)                     
+                    ElementoEncontrado.CincoEnLVCO = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  0 ................" )                    
+                }else{}
+
+                if(fondoRedDiagonalBaO){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)                     
+                    ElementoEncontrado.DiagonalBaO = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  0 ................" )                    
+                }else{}
+
+                if(fondoRedDiagonalOaB){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)                     
+                    ElementoEncontrado.DiagonalOaB = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  0 ................" )                    
+                }else{}
+
+                if(fondoRedCartonLleno){
+                    let CartonIDultimo = "CARTON-"+[i+1];
+                    let ElementoEncontrado = arrayMatrixBINGO[0].find(carton => carton.cartonID === CartonIDultimo)                     
+                    ElementoEncontrado.CartonLleno = true                    
+                    //console.log("El Carton Nro.", "carton-"+[i+1], "HIZO BINGO 5 EN LINEA VERTICAL COLUMNA  0 ................" )                    
+                }else{}               
+                
                 
             }else{
                
@@ -291,7 +487,7 @@ export const A007BingoAutomatizado = () => {
                 let Obtener_Data_Filas_Carton_FX = (Obtener_Data_Cartones_SegunID_FX.getElementsByTagName("td")[j]).classList.contains("bg-red-600") 
                 //console.log("Obtener_Data_Filas_Carton_FX = ", Obtener_Data_Filas_Carton_FX);                                   
                 ColorDeFondoREDCadaCelda.push({
-                    IDCarton: "carton-"+[i],
+                    cartonID: "carton-"+[i],
                     Celda: j+1,                        
                     FondoRed: Obtener_Data_Filas_Carton_FX
                 });
@@ -360,39 +556,234 @@ export const A007BingoAutomatizado = () => {
                                 <td id={digitosDobles.letraO[4]} className="p-3 font-bold text-gray-200 border-2 border-white "> {digitosDobles.letraO[4]}  </td>
                             </tr>  
                             <tr>
-                                <td colSpan={4}>
-                                    Cuatro Esquinas
-                                </td>
-                                <td>
-                                   {console.log("indicarCartonesConBingo = ", indicarCartonesConBingo)}
-                                  {/* { ((("carton-"+index) === indicarCartonesConBingo.IDCarton) &&  (indicarCartonesConBingo.CuatroEsquinas === true))
-                                    ?  "SI"
-                                    :  ""
-                                   } */}
-                                </td>                               
-                            </tr>                         
+                                {(mostEnCartFDHB === "Cuatro Esquinas" || boolFDHBTLasAnt === true) &&
+                                    <td className={`${digitosDobles.CuatroEsquinas === true && 'bg-green-400 font-bold text-xs text-black'}
+                                                            text-xs                                        
+                                                    `} 
+                                    >
+                                        <span   className="text-xs">4-Esq</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "Cruz Grande" || boolFDHBTLasAnt === true || boolCruzGrandyPeq === true ) &&
+                                    <td className={`${digitosDobles.CruzGrande === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                    `} 
+                                    >
+                                        <span className='text-xs'>CruzG</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "Cruz Pequeña" || boolFDHBTLasAnt === true || boolCruzGrandyPeq === true ) &&
+                                    <td className={`${digitosDobles.CruzPeq === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                    `} 
+                                    >
+                                        <span className='text-xs'>CruzCC</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "Diagonal de B a O" || boolFDHBTLasAnt === true || boolSoloDiagonales === true ) &&
+                                    <td className={`${digitosDobles.DiagonalBaO === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>DiagBO</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "Diagonal de O a B" || boolFDHBTLasAnt === true || boolSoloDiagonales === true ) &&
+                                    <td className={`${digitosDobles.DiagonalOaB === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>DiagOB</span>
+                                    </td>
+                                }                                                       
+                            </tr>   
+                            <tr>
+                                {(mostEnCartFDHB === "5 en Linea Horiz Linea 1" || boolFDHBTLasAnt === true || boolFDHBCualqFila === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLHL1 === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LHL1</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Horiz Linea 2" || boolFDHBTLasAnt === true  || boolFDHBCualqFila === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLHL2 === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LHL2</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Horiz Linea 3" || boolFDHBTLasAnt === true  || boolFDHBCualqFila === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLHL3 === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LHL3</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Horiz Linea 4" || boolFDHBTLasAnt === true || boolFDHBCualqFila === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLHL4 === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LHL4</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Horiz Linea 5" || boolFDHBTLasAnt === true || boolFDHBCualqFila === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLHL5 === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LHL5</span>
+                                    </td>
+                                }
+                            </tr> 
+                            <tr>
+                                {(mostEnCartFDHB === "5 en Linea Vert Colum B" || boolFDHBTLasAnt === true || boolFDHBCualqColumna === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLVCB === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LVCB</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Vert Colum I" || boolFDHBTLasAnt === true || boolFDHBCualqColumna === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLVCI === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LVCI</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Vert Colum N" || boolFDHBTLasAnt === true || boolFDHBCualqColumna === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLVCN === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LVCN</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Vert Colum G" || boolFDHBTLasAnt === true || boolFDHBCualqColumna === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLVCG === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LVCG</span>
+                                    </td>
+                                }
+                                {(mostEnCartFDHB === "5 en Linea Vert Colum O" || boolFDHBTLasAnt === true || boolFDHBCualqColumna === true ) &&
+                                    <td className={`${digitosDobles.CincoEnLVCO === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                `} 
+                                    >
+                                        <span className='text-xs'>5LVCO</span>
+                                    </td>
+                                }
+                            </tr>  
+                            <tr>
+                                {(mostEnCartFDHB === "Carton Lleno" || boolFDHBTLasAnt === true ) &&
+                                    <td className={`${digitosDobles.CartonLleno === true && 'bg-green-400 font-bold text-xs text-black '}
+                                                            text-xs                                        
+                                                    `} 
+                                    >
+                                        <span className='text-xs'>CLleno</span>
+                                    </td>
+                                }  
+                                
+                            </tr> 
+                                                   
                         </tbody>  
                                                 
                     </table>
                 ))  
             ));   
-    }    
-
-    const fxCapturarCheck = (e) => {
-        fxResetVariables();
-        setBoolBotonGenerarCartones(false);        
-        setCartonesAImprimir(e);
     } 
-
+  
     const fxHandledCartonesDeBingo = () => {  
         setBoolBotonGenerarCartones(true);      
         setArrayMatrixBINGO([]);        
         fxGenerarCartonesDeBINGO(cartonesAImprimir);
     } 
 
+    const fxCapturarCheckFDHBG = (e) => {
+        let VarFDHBG = {FormaDeHacerBingo: e, FDHBG: true}
+        //console.log("Variable pasada FORMA DE HACER BINGO :", e);  
+        fxVariasFormasDeHacerBingo(e);  
+        setDataFormaDeHacerBG(VarFDHBG);  
+    } 
+    
+
+    const fxCapturarCheckCDEAS = (e) => {
+        let VarCDEAS = {CantidadNumerosASalir: e, CDEAS: true}                
+        //console.log("Variable pasada CANTIDAD DE ESFERAS A SALIR :", e);
+        setDataCantidadNroASalir(VarCDEAS);
+    } 
+    
+
+    const fxCapturarCheckCDECARTAIMP = (e) => {
+        let VarCantCartAImp = {CantidadCartonesAImp: e, CDeCartAImp: true}    
+        //console.log("Variable pasada CANTIDAD DE CARTONES A IMPRIMIR :", e);
+        setDataCantidadCartAImp(VarCantCartAImp);  
+        setCartonesAImprimir(e);
+
+        /* fxResetVariables();
+        setBoolBotonGenerarCartones(false);        
+         */
+    } 
+        
+
+
+    const fxAcordFormasDHacerBG = () => {
+        return  matrizFormaDeHacerBingo.map(({ id, name, value, ItemChecked }, index) => (            
+            <div    key={index}
+                    className={`${value === "Todas Las Anteriores" && 'bg-blue-700 font-bold text-xs text-black '}
+                                flex flex-row items-center justify-center w-full text-center hover:bg-light-green-900                                       
+                              `} 
+            >
+                <div className='items-center justify-center w-full'>
+                    <Radio
+                        id={id}
+                        name={name}
+                        value={value}
+                        defaultChecked={ItemChecked}
+                        onChange={() => fxCapturarCheckFDHBG(value)}
+                    />
+                    <Label  htmlFor={value}>
+                        <span  className='text-white'> {value} </span>                       
+                    </Label>
+                </div>
+            </div>           
+        )) 
+    }
+
+    
+    const fxAcordCantidadDEsferarASalir = () => {
+        return  matrizCantEsferasASalir.map(({ id, name, value, ItemChecked }, index) => (            
+            <div    key={index}
+                    className={`${value === 50 && 'flex flex-col items-center justify-center w-1/5 text-center md:w-8 bg-blue-700 font-bold text-xs text-black  hover:bg-light-green-900 '}
+                                flex flex-col items-center justify-center w-1/5 text-center md:w-8 hover:bg-light-green-900 '                                      
+                             `} 
+            >
+                <div className='items-center justify-center w-full'>
+                    <Radio
+                        id={id}
+                        name={name}
+                        value={value}
+                        defaultChecked={ItemChecked}
+                        onChange={() => fxCapturarCheckCDEAS(value)}
+                    />
+                    <Label  htmlFor={value}>
+                        <span  className='text-white'> {value} </span>                       
+                    </Label>
+                </div>
+            </div>           
+        )) 
+    }
+
    
     const fxMostrarMatrixCartones = () => {
-        return  matrixCantidadDeCartones.map(({ id, name, value, Checked }, index) => (            
+        return  matrixCantidadDeCartones.map(({ id, name, value, ItemChecked }, index) => (            
             <div    key={index}
                     className='flex flex-col items-center justify-center w-1/5 text-center md:w-8 hover:bg-light-green-900'
             >
@@ -400,8 +791,9 @@ export const A007BingoAutomatizado = () => {
                     id={id}
                     name={name}
                     value={value}
-                    defaultChecked={Checked}
-                    onChange={() => fxCapturarCheck(value)}
+                    defaultChecked={ItemChecked}
+                    //onChange={() => fxCapturarCheck(value)}
+                    onChange={() => fxCapturarCheckCDECARTAIMP(value)}
                 />
                 <Label  htmlFor={value}>
                     <span  className='text-white'> {value} </span>                       
@@ -411,13 +803,20 @@ export const A007BingoAutomatizado = () => {
          
     }
 
+   
+
     const fxResetVariables = () => {
         setArrayMatrixBINGO([]); 
         setArrayObjetoNumerosAleatorio([]);
         setNumeroActual(0); 
-        setBoolBotonGenerarCartones(false);  
-        setIndicarCartonesConBingo([]);    
+        setBoolBotonGenerarCartones(false); 
+        setDataFormaDeHacerBG(null);
+        setDataCantidadNroASalir(null);
+        setDataCantidadCartAImp(null);         
     }
+    
+    //console.log("arrayMatrixBINGO = ", arrayMatrixBINGO); 
+    
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full'>
@@ -425,10 +824,54 @@ export const A007BingoAutomatizado = () => {
             <div className='flex flex-col items-center justify-center w-full pt-2 text-center lg:pt-0'>
                 <span className='text-xl font-semibold underline sm:text-2xl md:text-3xl'>BINGO AUTOMATIZADO</span>
             </div>
-            <div className='flex flex-col items-center justify-center w-full sm:flex-row'>                
-                <div className='flex flex-col items-center justify-center w-full py-4 sm:w-1/2'>
-                    <div className='flex flex-col items-center justify-center w-60 md:w-3/4 '>
-                        <fieldset
+            <div className='flex items-center justify-center w-full border-2 flex-wrap h-auto'>                
+                <div    className={`${boolBotonGenerarCartones === true && 'hidden'}
+                               flex flex-col items-center justify-center w-full py-4 border-2 sm:w-1/2 lg:w-1/4 border-lime-500 min-h-60                                      
+                             `}
+                >
+                    <div className='flex flex-col items-center justify-center w-60 md:w-full h-full '>
+                        <div    className="w-full border-2 border-green-600 sm:w-72" >                           
+                            <Accordion alwaysOpen={true}
+                                        hidden={boolBotonGenerarCartones === true}                                        
+                            >
+                                <Accordion.Panel>
+                                    <Accordion.Title>
+                                        <span className='text-sm font-bold sm:text-md'>FORMAS DE HACER BINGO</span>                                        
+                                    </Accordion.Title>
+                                    <Accordion.Content>
+                                        {fxAcordFormasDHacerBG()}
+                                    </Accordion.Content>
+                                </Accordion.Panel>
+                                <Accordion.Panel disabled={true}>
+                                    <Accordion.Title>
+                                        <span className='text-sm font-bold sm:text-md'>CANT. DE ESFERAS A SALIR</span>                                        
+                                    </Accordion.Title>
+                                    <Accordion.Content>
+                                        {(dataFormaDeHacerBG  !== null && dataFormaDeHacerBG.FDHBG)
+                                            ?   <div className='flex flex-wrap items-center justify-center'>
+                                                    {fxAcordCantidadDEsferarASalir()}
+                                                </div>
+                                            :   ""
+                                        }
+                                        
+                                    </Accordion.Content>
+                                </Accordion.Panel>
+                                <Accordion.Panel disabled={true}>
+                                    <Accordion.Title>
+                                        <span className='text-sm font-bold sm:text-md'>CANT. DE CARTONES</span>                                         
+                                    </Accordion.Title>
+                                    <Accordion.Content>
+                                        {(dataCantidadNroASalir  !== null && dataCantidadNroASalir.CDEAS)
+                                                ?   <div className='flex flex-wrap items-center justify-center'>
+                                                        {fxMostrarMatrixCartones()}
+                                                    </div>
+                                                :   ""
+                                        }
+                                    </Accordion.Content>
+                                </Accordion.Panel>                                
+                            </Accordion>
+                        </div>
+                        {/* <fieldset
                             className="flex flex-col gap-4 p-3 bg-orange-900 border-2"
                             id="radio"                                               
                         >
@@ -438,8 +881,8 @@ export const A007BingoAutomatizado = () => {
                             <div className="flex flex-wrap items-center justify-around gap-2">
                                 { fxMostrarMatrixCartones() }
                             </div>                                          
-                        </fieldset>
-                        <div className='flex flex-row items-center justify-center w-full mt-5'>
+                        </fieldset> */}
+                        {/* <div className='flex flex-row items-center justify-center w-full mt-5'>
                             <button    className={`${boolBotonGenerarCartones === true && 'opacity-30 cursor-not-allowed'}
                                                     px-3 py-2 bg-blue-600 mr-8 rounded-md w-28                                         
                                                 `}                                
@@ -453,12 +896,47 @@ export const A007BingoAutomatizado = () => {
                             >
                                <span className='text-xs'> Reset All </span>  
                             </button>
-                        </div>
+                        </div> */}
                     </div>                    
                 </div>
+                <div className='flex flex-col items-center justify-center w-full border-2 border-red-500 sm:w-1/2 lg:w-1/4 h-60'>
+                    <div className='flex flex-col items-center justify-center w-60 border-4 border-green-800'>
+                        <div className='flex flex-col items-center justify-center h-12 bg-green-400 w-full'>
+                            <div className='text-sm underline text-gray-800'> Forma de Hacer Bingo:</div>
+                            <div className='text-sm text-black font-extrabold'> {dataFormaDeHacerBG  && dataFormaDeHacerBG.FormaDeHacerBingo} </div>
+                        </div>
+                        <div className='flex flex-row items-center justify-center h-12 bg-green-400 w-full'>
+                            <div className='text-sm flex-1 items-center justify-center text-center text-gray-800'> Cant. de # que Saldran:</div>                            
+                            <div className='text-base w-1/5 text-center text-black font-extrabold'> {dataCantidadNroASalir  && dataCantidadNroASalir.CantidadNumerosASalir}</div>
+                        </div>
+                        <div className='flex flex-row items-center justify-center h-12 bg-green-400 w-full'>
+                            <div className='text-sm  flex-1 items-center justify-center text-center text-gray-800'> Cant. de Cartones a Imprimir:</div>
+                            <div className='text-base w-1/5 text-center text-black font-extrabold'> {dataCantidadCartAImp  && dataCantidadCartAImp.CantidadCartonesAImp}</div>
+                        </div>
+                        <div className='flex flex-col items-center justify-center h-12 bg-green-700 w-full'>
+                            {/* <div className='text-lg'> Faltan:</div> */}
+                                <div className='flex flex-row items-center justify-center w-full'>
+                                    <button    className={`${(dataCantidadCartAImp === null || boolBotonGenerarCartones === true) && 'opacity-30 cursor-not-allowed -z-10'}
+                                                           px-3 py-2 bg-yellow-300 text-black mr-3 rounded-md w-28 animate-pulse font-bold                                     
+                                                        `}                                
+                                                disabled={boolBotonGenerarCartones}
+                                                onClick={fxHandledCartonesDeBingo}
+                                    >
+                                        <span className='text-base'> START. </span> 
+                                    </button>
+                                    <button className='px-3 py-2 bg-red-600 rounded-md w-28'
+                                            onClick={fxResetVariables}                            
+                                    >
+                                    <span className='text-xs'> Reset All </span>  
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
                 
-                <div className='flex flex-row items-center justify-center w-full sm:w-1/2'>
-                    <div className='flex flex-row items-center justify-center pt-5 w-60 md:w-full border-y-4'>                       
+                <div className='flex flex-col items-center justify-center w-full py-5 border-2 border-red-500  lg:w-1/2'>
+                    
+                    <div className='flex flex-row items-center justify-center pt-5 w-full border-y-4'>                       
                         <div className='flex flex-row items-center justify-around w-full mb-5 md:w-1/2 '>
                             <div className='flex flex-col items-center justify-center w-1/2'>
                                 <button     className={`${boolBotonGenerarCartones === false && 'opacity-30 cursor-not-allowed'}
@@ -477,7 +955,7 @@ export const A007BingoAutomatizado = () => {
                                 </span>
                             </div>
                         </div>
-                        <div className='flex-col items-center justify-center hidden w-1/2 mb-5 border-2 border-red-500 lg:flex'>
+                        <div className='flex-col items-center justify-center hidden w-1/2 mb-5 border-2 border-red-500 sm:flex mr-2'>
                             <div className='flex flex-row items-center justify-around w-full text-center border-2 border-yellow-300'>
                                 <div className='w-2/5 text-lg'> Han Salido:</div>
                                 <div className='w-1/5 px-2 text-xl font-bold'> { arrayObjetoNumerosAleatorio.length }</div> 
